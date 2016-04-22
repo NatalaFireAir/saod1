@@ -2,6 +2,7 @@ package com.Nikita;
 
 public class Vertex {
     int data;
+    int key;
     Vertex left;
     Vertex right;
     private static int max(int a, int b){
@@ -9,10 +10,10 @@ public class Vertex {
         return b;
     }
     Vertex(){
-        data = 0;
+        key = 0;
     }
     Vertex(int data){
-        this.data = data;
+        this.key = data;
     }
     public void addLeft(Vertex vertex) {
         this.left = vertex;
@@ -24,7 +25,7 @@ public class Vertex {
     public static void readLeftToRight(Vertex vertex) {
         if (vertex != null) {
             readLeftToRight(vertex.left);
-            System.out.println(vertex.data);
+            System.out.print(vertex.key + " ");
             readLeftToRight(vertex.right);
         }
     }
@@ -57,7 +58,7 @@ public class Vertex {
     public static int findCheckSum(Vertex vertex) {
         int checkSum;
         if (vertex == null) checkSum = 0;
-        else checkSum = vertex.data + findCheckSum(vertex.left) + findCheckSum(vertex.right);
+        else checkSum = vertex.key + findCheckSum(vertex.left) + findCheckSum(vertex.right);
         return checkSum;
     }
 
