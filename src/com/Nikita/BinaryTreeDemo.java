@@ -56,7 +56,17 @@ public class BinaryTreeDemo {
             System.out.println();
             System.out.println(pbt.root.key + " " + pbt.root.right.key);
             Vertex v = pbt.search(1);
-            System.out.println(v.key + " ieft: " + v.left.key + "  right: " + v.right.key);
+            System.out.println(v.key + " left: " + v.left.key + "  right: " + v.right.key);
+            RandomizedSearchTree rst = new RandomizedSearchTree();
+            rst.addVertex(10);
+            rst.addVertex(4);
+            rst.addVertex(15);
+            rst.addVertex(13);
+            rst.addVertex(14);
+            rst.addVertex(20);
+            System.out.println("_______________________________");
+            Vertex.readLeftToRight(rst.root);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
