@@ -1,5 +1,6 @@
 package com.Nikita;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -40,5 +41,25 @@ public class BinaryTreeDemo {
         System.out.println("Average height = " + Vertex.findAverageHeight(root));
         System.out.println("Check Sum = " + Vertex.findCheckSum(root));
         System.out.println("Check = " + checkSearchTree(root));
+
+        int[]A = new int[10];
+        for (int i = 0; i < 10; i++) {
+            A[i] = i;
+            System.out.println(A[i] + "--" + i);
+        }
+        System.out.println(A);
+
+        try{
+            PerfectlyBalancedTree pbt = new PerfectlyBalancedTree(PerfectlyBalancedTree.createPBT(A,0,9));
+            System.out.println("_______________________________");
+            Vertex.readLeftToRight(pbt.root);
+            System.out.println();
+            System.out.println(pbt.root.key + " " + pbt.root.right.key);
+            Vertex v = pbt.search(1);
+            System.out.println(v.key + " ieft: " + v.left.key + "  right: " + v.right.key);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }

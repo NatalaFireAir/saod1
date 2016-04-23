@@ -12,8 +12,12 @@ public class Vertex {
     Vertex(){
         key = 0;
     }
-    Vertex(int data){
-        this.key = data;
+    Vertex(int key){
+        this.key = key;
+    }
+    Vertex(int key, int data){
+        this.key = key;
+        this.data = data;
     }
     public void addLeft(Vertex vertex) {
         this.left = vertex;
