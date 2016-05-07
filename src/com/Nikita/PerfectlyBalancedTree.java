@@ -2,9 +2,6 @@ package com.Nikita;
 
 public class PerfectlyBalancedTree extends SearchTree{
     public PerfectlyBalancedTree(int A[]) {
-/*        for (int a:A){
-            System.out.print(a);
-        }*/
         try{
             quickSortFunction(A, 0, A.length - 1);
             root = createPBT(A, 0, A.length - 1);

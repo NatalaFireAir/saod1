@@ -25,6 +25,9 @@ public class SearchTree {
            root = v;
         }
     }
+    public SearchTree() {
+        root = null;
+    }
     private static int max(int a, int b){
         if (a >= b) return a;
         return b;
@@ -64,7 +67,6 @@ public class SearchTree {
     }
 
     private float findAverageHeight(Vertex vertex) {
-        //    System.out.println(pathsLengthSum(vertex, 1));
         return (float)pathsLengthSum(vertex, 1)/findSize(vertex);
     }
 
@@ -93,7 +95,4 @@ public class SearchTree {
     public int findSize() { return findSize(root); }
     public float findAverageHeight() { return findAverageHeight(root); }
     public int findCheckSum() { return findCheckSum(root); }
-
-
-
 }

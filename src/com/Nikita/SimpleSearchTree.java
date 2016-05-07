@@ -10,9 +10,6 @@ public class SimpleSearchTree extends SearchTree{
             }
         }
     }
-    public SimpleSearchTree() {
-        root = null;
-    }
     public void addVertex(int value) throws duplicateValueException {
         if (root == null) {
             root = new Vertex(value);
