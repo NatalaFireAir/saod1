@@ -1,8 +1,16 @@
 package com.Nikita;
 
-public class RandomizedSearchTree extends SearchTree{
-
-    public RandomizedSearchTree() {
+public class SimpleSearchTree extends SearchTree{
+    public SimpleSearchTree(int A[]) {
+        for(int a:A) {
+            try {
+                addVertex(a);
+            } catch (duplicateValueException d) {
+                System.out.println("duplicate value");
+            }
+        }
+    }
+    public SimpleSearchTree() {
         root = null;
     }
     public void addVertex(int value) throws duplicateValueException {
