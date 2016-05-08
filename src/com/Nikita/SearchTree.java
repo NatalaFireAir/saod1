@@ -6,6 +6,8 @@ public class SearchTree {
         int balance;
         int height;
         int key;
+      //  boolean VR, HR;
+
         Vertex left;
         Vertex right;
         Vertex(){
@@ -16,6 +18,7 @@ public class SearchTree {
             height = 0;
         }
         Vertex(int key){
+        //    VR=HR=true;
             balance = 0;
             this.key = key;
             this.left = null;
@@ -32,6 +35,7 @@ public class SearchTree {
         Vertex(Vertex v){
            root = v;
         }
+
     }
     public SearchTree() {
         root = null;
