@@ -1,5 +1,7 @@
 package com.Nikita;
 
+import sun.security.provider.certpath.Vertex;
+
 import java.util.Random;
 
 public class BinaryTreeDemo {
@@ -24,7 +26,46 @@ public class BinaryTreeDemo {
     }
     public static void main(String args[]){
         BinaryTreeDemo demo = new BinaryTreeDemo();
-        for (int n:demo.nValues) {
+        SimpleSearchTree rst = new SimpleSearchTree();
+        AVLTree avlt = new AVLTree();
+        avlt.root = avlt.insert(10, avlt.root);
+        avlt.readLeftToRight();
+        avlt.root = avlt.insert(1, avlt.root);
+        System.out.println("1");
+
+        avlt.root = avlt.insert(20, avlt.root);
+        System.out.println("20");
+        avlt.root = avlt.insert(15, avlt.root);
+        System.out.println("20");
+        avlt.root = avlt.insert(16, avlt.root);
+        System.out.println("20");
+        avlt.readLeftToRight();
+        System.out.println("root" + avlt.root.key + "   left: " + avlt.root.left.key + "    right: " + avlt.root.right.key + "    rightleft " + avlt.root.right.left.key);
+
+
+
+        /*try {
+            rst.addVertex(10);
+            rst.addVertex(4);
+            rst.addVertex(15);
+            rst.addVertex(13);
+            rst.addVertex(14);
+            rst.addVertex(20);
+            rst.addVertex(2);
+            rst.addVertex(9);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println("_______________________________");
+        rst.readLeftToRight();
+        System.out.println("root" + rst.root.key + "   left: " + rst.root.left.key + "    right: " + rst.root.right.key);
+
+
+        rst.LLturn(rst.root);
+        System.out.println();
+        rst.readLeftToRight();
+        System.out.println("root" + rst.root.key + "   left: " + rst.root.left.key + "    right: " + rst.root.right.key);
+        *//*for (int n:demo.nValues) {
             int[] A = demo.createRandArray(n);
             System.out.println();
             for (int a:A){
@@ -69,6 +110,6 @@ public class BinaryTreeDemo {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
+        }*/
     }
 }

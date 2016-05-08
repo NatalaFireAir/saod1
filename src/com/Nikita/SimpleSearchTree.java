@@ -1,6 +1,9 @@
 package com.Nikita;
 
 public class SimpleSearchTree extends SearchTree{
+    public SimpleSearchTree(){
+
+    }
     public SimpleSearchTree(int A[]) {
         for(int a:A) {
             try {
