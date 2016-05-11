@@ -23,7 +23,8 @@ public class BinaryTreeDemo {
     }
     public static void main(String args[]){
         BinaryTreeDemo demo = new BinaryTreeDemo();
-        for (int n:demo.nValues) {
+        OptimalSearchTree ost = new OptimalSearchTree();
+      /*  for (int n:demo.nValues) {
             int[] A = demo.createRandArray(n);
             System.out.println();
             for (int a:A){
@@ -43,6 +44,6 @@ public class BinaryTreeDemo {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
+        }*/
     }
 }

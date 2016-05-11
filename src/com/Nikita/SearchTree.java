@@ -19,9 +19,18 @@ public class SearchTree {
             height = 0;
         }
         Vertex(int key){
-        //    VR=HR=true;
+            //    VR=HR=true;
             balance = 0;
             this.key = key;
+            this.left = null;
+            this.right = null;
+            height = 0;
+        }
+        Vertex(int key, int weight){
+            //    VR=HR=true;
+            balance = 0;
+            this.key = key;
+            this.weight = weight;
             this.left = null;
             this.right = null;
             height = 0;
