@@ -3,6 +3,7 @@ package com.Nikita;
 public class SearchTree {
   Vertex root;
     class Vertex {
+        boolean use;
         double weight;
         int balance;
         int height;

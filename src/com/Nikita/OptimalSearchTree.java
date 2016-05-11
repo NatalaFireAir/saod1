@@ -1,71 +1,80 @@
 package com.Nikita;
 
-public class OptimalSearchTree extends SearchTree{
+
+public class OptimalSearchTree extends SearchTree {
     int arrayLenght;
     Vertex[] Avertex;
     int[][] AR; //key matrix
     double[][] AW; //weight matrix
     double[][] AP; //w-heught matrix
-    public  OptimalSearchTree() {
-        arrayLenght = 4;
-        Vertex v1= new Vertex(1,60);
-        Vertex v2= new Vertex(2,30);
-        Vertex v3= new Vertex(3,10);
-        Avertex = new Vertex[4];
-        Avertex[0]= new Vertex();
+
+    public OptimalSearchTree() {
+        arrayLenght = 7;
+        Vertex v1 = new Vertex(1, 60);
+        Vertex v2 = new Vertex(2, 30);
+        Vertex v3 = new Vertex(3, 10);
+        Avertex = new Vertex[7];
+        Avertex[0] = new Vertex();
         Avertex[1] = v1;
         Avertex[2] = v2;
         Avertex[3] = v3;
+        Avertex[4] = new Vertex(4,70);
+        Avertex[5] = new Vertex(5,20);
+        Avertex[6] = new Vertex(6,120);
         AW = new double[arrayLenght][arrayLenght];
         AP = new double[arrayLenght][arrayLenght];
         AR = new int[arrayLenght][arrayLenght];
-        for(int i = 0; i < arrayLenght; i++ ){
+        for (int i = 0; i < arrayLenght; i++) {
             for (int j = i; j < arrayLenght; j++) {
                 AW[i][j] = 0;
             }
         }
-         createAW();
-        for(int i = 0; i < arrayLenght; i++ ){
+        createAW();
+        for (int i = 0; i < arrayLenght; i++) {
             for (int j = i; j < arrayLenght; j++) {
-                System.out.print(AW[i][j] +" _ ");
+                System.out.print(AW[i][j] + " _ ");
             }
             System.out.println();
         }
         createAPAR();
-        for(int i = 0; i < arrayLenght; i++ ){
+        for (int i = 0; i < arrayLenght; i++) {
             for (int j = i; j < arrayLenght; j++) {
                 System.out.print(AP[i][j] + "*" + AR[i][j] + " _ ");
             }
             System.out.println();
         }
+        createOST_A2(root, 0, arrayLenght );
+        readLeftToRight();
+//        System.out.println(root.key+ "  " + root.right.key + "  " + root.right.right.key);
+    }
 
-    }
     void createAW() {
-        for(int i = 0; i < arrayLenght; i++ ){
-            for (int j = i+1; j < arrayLenght; j++) {
-                AW[i][j] = AW[i][j-1] + Avertex[j].weight;
-               // System.out.print(AW[i][j] + " _ ");
+        for (int i = 0; i < arrayLenght; i++) {
+            for (int j = i + 1; j < arrayLenght; j++) {
+                AW[i][j] = AW[i][j - 1] + Avertex[j].weight;
+                // System.out.print(AW[i][j] + " _ ");
             }
-           // System.out.println();
+            // System.out.println();
         }
-     //   return AW;
+        //   return AW;
     }
+
     void createAPAR() {
-        for(int i = 0; i < arrayLenght-1; i++ ){
-            for (int j = i+1; j < arrayLenght; j++) {
+        for (int i = 0; i < arrayLenght - 1; i++) {
+            for (int j = i + 1; j < arrayLenght; j++) {
                 AP[i][j] = AW[i][j];
-                AR[i][j] = i+1;
-               // System.out.print(AR[i][j] + "/ "+ AP[i][j] + "___");
+                AR[i][j] = i + 1;
+                // System.out.print(AR[i][j] + "/ "+ AP[i][j] + "___");
             }
-           // System.out.println();
+            // System.out.println();
         }
         for (int h = 2; h < arrayLenght; h++) {
             for (int i = 0; i < arrayLenght - h; i++) {
                 int j = i + h;
-                int m = AR[i][j-1];
-                double min = AP[i][m-1] + AP[m][j];
-                for (int k = m+1; k < AR[i+1][j]; k++) {
-                    double temp = AP[i][k-1] + AP[k][j];
+                int m = AR[i][j - 1];
+                double min = AP[i][m - 1] + AP[m][j];
+                for (int k = m + 1; k < AR[i + 1][j]; k++) {
+                    double temp = AP[i][k - 1] + AP[k][j];
                     if (temp < min) {
                         m = k;
                         min = temp;
@@ -73,12 +82,82 @@ public class OptimalSearchTree extends SearchTree{
                 }
                 AP[i][j] = min + AW[i][j];
                 AR[i][j] = m;
-                System.out.print(AP[i][j] +"*" +AR[i][j] + " _ ");
+                System.out.print(AP[i][j] + "*" + AR[i][j] + " _ ");
             }
             System.out.println();
         }
-
     }
-
-
+    public void createOST_A1(Vertex root) {
+        for (int i = 1; i < arrayLenght; i++) {
+            Avertex[i].use = false;
+        }
+        for (int i = 1; i < arrayLenght; i++) {
+            double max = 0;
+            int index = 0;
+            for (int j = 1; j < arrayLenght; j++) {
+                if (Avertex[j].weight > max && Avertex[j].use == false) {
+                    max = Avertex[j].weight;
+                    index = j;
+                }
+            }
+            Avertex[index].use = true;
+            try {
+                insert(Avertex[index]);
+            } catch (duplicateValueException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    public void createOST_A2(Vertex root, int l, int r) {
+        double treeWeight = 0;
+        double sum = 0;
+        if (l < r) {
+            for (int i = l; i < r; i++) {
+                treeWeight += Avertex[i].weight;
+            }
+            int index = 0;
+            for (int i = l; i < r; i++) {
+                if (sum < treeWeight/2 && (sum + Avertex[i].weight) >= treeWeight/2) {
+                    index = i;
+                } else {
+                    sum += Avertex[i].weight;
+                }
+            }
+            try {
+                insert(Avertex[index]);
+                System.out.println(Avertex[index].key + " insert");
+            } catch (duplicateValueException e) {
+                e.printStackTrace();
+            }
+            createOST_A2(root, l,index-1);
+            createOST_A2(root,index+1,r);
+        }
+    }
+    public void insert(Vertex v) throws duplicateValueException {
+        if (root == null) {
+            root = v;
+            return;
+        }
+        Vertex p = root;
+        while (p != null) {
+            if (v.key < p.key) {
+                if (p.left == null) {
+                    p.left = v;
+                    return;
+                }
+                else {
+                    p = p.left;
+                }
+            }
+            else if (v.key > p.key) {
+                if (p.right == null) {
+                    p.right = v;
+                    return;
+                } else {
+                    p = p.right;
+                }
+            }
+            else throw new duplicateValueException();
+        }
+    }
 }
