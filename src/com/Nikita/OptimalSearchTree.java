@@ -6,7 +6,7 @@ public class OptimalSearchTree extends SearchTree {
     Vertex[] Avertex;
     int[][] AR; //key matrix
     double[][] AW; //weight matrix
-    double[][] AP; //w-heught matrix
+    double[][] AP; //w-height matrix
 
     public OptimalSearchTree() {
         arrayLenght = 7;
@@ -43,7 +43,7 @@ public class OptimalSearchTree extends SearchTree {
             }
             System.out.println();
         }
-        createOST_A2(root, 0, arrayLenght );
+        createOST_A1();//(1, arrayLenght - 1);
         readLeftToRight();
 //        System.out.println(root.key+ "  " + root.right.key + "  " + root.right.right.key);
     }
@@ -87,7 +87,7 @@ public class OptimalSearchTree extends SearchTree {
             System.out.println();
         }
     }
-    public void createOST_A1(Vertex root) {
+    public void createOST_A1() {
         for (int i = 1; i < arrayLenght; i++) {
             Avertex[i].use = false;
         }
@@ -108,16 +108,16 @@ public class OptimalSearchTree extends SearchTree {
             }
         }
     }
-    public void createOST_A2(Vertex root, int l, int r) {
+    public void createOST_A2( int l, int r) {
         double treeWeight = 0;
         double sum = 0;
-        if (l < r) {
-            for (int i = l; i < r; i++) {
+        if (l <= r) {
+            for (int i = l; i <= r; i++) {
                 treeWeight += Avertex[i].weight;
             }
             int index = 0;
-            for (int i = l; i < r; i++) {
-                if (sum < treeWeight/2 && (sum + Avertex[i].weight) >= treeWeight/2) {
+            for (int i = l; i <= r; i++) {
+                if (sum < (treeWeight/2) && (sum + Avertex[i].weight) >= treeWeight/2) {
                     index = i;
                 } else {
                     sum += Avertex[i].weight;
@@ -129,8 +129,8 @@ public class OptimalSearchTree extends SearchTree {
             } catch (duplicateValueException e) {
                 e.printStackTrace();
             }
-            createOST_A2(root, l,index-1);
-            createOST_A2(root,index+1,r);
+            createOST_A2( l,index-1);
+            createOST_A2(index+1,r);
         }
     }
     public void insert(Vertex v) throws duplicateValueException {
