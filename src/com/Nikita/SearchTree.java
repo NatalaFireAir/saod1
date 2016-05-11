@@ -78,7 +78,10 @@ public class SearchTree {
         p.right = LL(p.right);
         return RR(p);
     }
-
+    protected static double max(double a, double b){
+        if (a >= b) return a;
+        return b;
+    }
     protected static int max(int a, int b){
         if (a >= b) return a;
         return b;

@@ -43,9 +43,10 @@ public class OptimalSearchTree extends SearchTree {
             }
             System.out.println();
         }
-        createOST_A1();//(1, arrayLenght - 1);
+        createOST_A2(1, arrayLenght - 1);
         readLeftToRight();
 //        System.out.println(root.key+ "  " + root.right.key + "  " + root.right.right.key);
+        System.out.println(findAvgWeightHeight(root));
     }
 
     void createAW() {
@@ -160,4 +161,11 @@ public class OptimalSearchTree extends SearchTree {
             else throw new duplicateValueException();
         }
     }
+    public double findAvgWeightHeight(Vertex vertex) {
+            double h;
+            if (vertex == null) h = 0;
+            else h = (1 + max(findAvgWeightHeight(vertex.left), findAvgWeightHeight(vertex.right)))*vertex.weight;
+            return h;
+    }
+
 }
