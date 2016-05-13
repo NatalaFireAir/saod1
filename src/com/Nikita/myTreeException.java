@@ -1,5 +1,3 @@
 package com.Nikita;
 
-public class myTreeException extends Exception {
-
-}
+public class MyTreeException extends Exception { }

@@ -1,10 +1,20 @@
 package com.Nikita;
-
 import java.util.Random;
-
+/**
+ * Класс, демонстрирующий особенности Случайного дерева поиска и Идеально сбалансированного дерева поиска
+ */
 public class BinaryTreeDemo {
-    int []nValues = {10, 50, 100, 200, 400};
+    /**
+     * генератор случайных значений
+     */
     Random rnd = new Random(System.currentTimeMillis());
+    /**
+     * Массив значений n - варианты количества элементов дерева
+     */
+    int []nValues = {10, 50, 100, 200, 400};
+    /**
+     * Метод, возвращающий массив заданной величины из неповторяющихся рандомных значений
+     */
     int[] createRandArray(int n) {
         int[] array = new int[n];
         boolean isDuplicate;
@@ -22,11 +32,13 @@ public class BinaryTreeDemo {
         }
         return array;
     }
+
+
     public static void main(String args[]){
         BinaryTreeDemo demo = new BinaryTreeDemo();
         for (int n:demo.nValues) {
             int[] A = demo.createRandArray(n);
-            System.out.println();
+            System.out.println("Array:  ");
             for (int a:A){
                 System.out.print(a + ", ");
             }
@@ -35,7 +47,7 @@ public class BinaryTreeDemo {
             try {
                 System.out.println(n + " elements");
                 System.out.println();
-                System.out.println("Perfectly Balanced Tree");
+                System.out.println("Perfectly Balanced Tree:");
                 PerfectlyBalancedTree pbt = new PerfectlyBalancedTree(A);
                 System.out.println("Check = " + pbt.checkSearchTree());
                 pbt.readLeftToRight();
@@ -46,11 +58,11 @@ public class BinaryTreeDemo {
                 try {
                     int steps = pbt.search(val);
                     System.out.println("founded in " + steps + " steps");
-                } catch (valueNotFoundException v) {
+                } catch (ValueNotFoundException v) {
                     System.out.println("not found");
                 }
                 System.out.println();
-                System.out.println("Simple Search Tree");
+                System.out.println("Simple Search Tree:");
                 SimpleSearchTree sst = new SimpleSearchTree(B);
                 System.out.println("Check = " + sst.checkSearchTree());
                 sst.readLeftToRight();
@@ -61,7 +73,7 @@ public class BinaryTreeDemo {
                 try {
                     int steps = sst.search(val);
                     System.out.println("founded in " + steps + " steps");
-                } catch (valueNotFoundException v) {
+                } catch (ValueNotFoundException v) {
                     System.out.println("not found");
                 }
                 System.out.println();
