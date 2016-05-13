@@ -1,74 +1,37 @@
 package com.Nikita;
-
 import java.util.Random;
 
+/**
+ * Класс, демонстрирующий структуру данных - бинарное дерево, и основные операции с данной структурой
+ */
 public class BinaryTreeDemo {
-    int []nValues = {10, 50, 100, 200, 400};
-    Random rnd = new Random(System.currentTimeMillis());
-    int[] createRandArray(int n) {
-        int[] array = new int[n];
-        boolean isDuplicate;
-        for (int i = 0; i < n; i++) {
-            while(true) {
-                isDuplicate = false;
-                array[i] = rnd.nextInt(10000);
-                for (int j = 0; j < i; j++) {
-                    if (array[i] == array[j]){
-                        isDuplicate = true;
-                    }
-                }
-                if (isDuplicate == false) break;
-            }
-        }
-        return array;
-    }
     public static void main(String args[]){
-        BinaryTreeDemo demo = new BinaryTreeDemo();
-        for (int n:demo.nValues) {
-            int[] A = demo.createRandArray(n);
-            System.out.println();
-            for (int a:A){
-                System.out.print(a + ", ");
-            }
-            System.out.println();
-            int[] B = A.clone();
-            try {
-                System.out.println(n + " elements");
-                System.out.println();
-                System.out.println("Perfectly Balanced Tree");
-                PerfectlyBalancedTree pbt = new PerfectlyBalancedTree(A);
-                System.out.println("Check = " + pbt.checkSearchTree());
-                pbt.readLeftToRight();
-                System.out.println();
-                System.out.println("root: " + pbt.root.key );
-                System.out.println("average height: " + pbt.findAverageHeight());
-                int val = A[demo.rnd.nextInt(A.length)];
-                try {
-                    int steps = pbt.search(val);
-                    System.out.println("founded in " + steps + " steps");
-                } catch (valueNotFoundException v) {
-                    System.out.println("not found");
-                }
-                System.out.println();
-                System.out.println("Simple Search Tree");
-                SimpleSearchTree sst = new SimpleSearchTree(B);
-                System.out.println("Check = " + sst.checkSearchTree());
-                sst.readLeftToRight();
-                System.out.println();
-                System.out.println("root: " + sst.root.key );
-                System.out.println("average height: " + sst.findAverageHeight());
-                val = B[demo.rnd.nextInt(B.length)];
-                try {
-                    int steps = sst.search(val);
-                    System.out.println("founded in " + steps + " steps");
-                } catch (valueNotFoundException v) {
-                    System.out.println("not found");
-                }
-                System.out.println();
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        Random rnd = new Random(System.currentTimeMillis());
+        Vertex[] vertex = new Vertex[6];
+        /**
+         * Инициализация вершин случайными числами
+         */
+        for (int i = 0; i < 6; i++) {
+            vertex[i] = new Vertex(rnd.nextInt(20));
+            System.out.print(vertex[i].key + " ");
         }
+        System.out.println();
+        /**
+         * Построение дерева
+         */
+        Vertex root = vertex[0];
+        vertex[0].right = vertex[1];
+        vertex[1].left = vertex[2];
+        vertex[1].right = vertex[3];
+        vertex[3].left = vertex[4];
+        vertex[3].right = vertex[5];
+        /**
+         * Чтение дерева слева направо и вычисление его характеристик: высоты, средней высоты, контрольной суммы
+         */
+        Vertex.readLeftToRight(root);
+        System.out.println();
+        System.out.println("Height = " + Vertex.findHeight(root));
+        System.out.println("Average height = " + Vertex.findAverageHeight(root));
+        System.out.println("Check Sum = " + Vertex.findCheckSum(root));
     }
 }
