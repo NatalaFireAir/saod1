@@ -1,17 +1,17 @@
 package com.Nikita;
-
+/**
+ * Класс - идеально сбалансированное дерево поиска(ИСДП)
+ */
 public class PerfectlyBalancedTree extends SearchTree{
     public PerfectlyBalancedTree(int A[]) {
-        try{
             quickSortFunction(A, 0, A.length - 1);
             root = createPBT(A, 0, A.length - 1);
-        } catch (duplicateValueException d) {
-            System.out.println("DUPLICATE VALUE");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
-    private void quickSortFunction(int A[], int left, int right) throws duplicateValueException{
+    /**
+     * ИСДП создается на основе упорядоченного массива случайных неповторяющихся чисел.
+     * Для упорядочивания используется алгоритм быстрой сортировки
+     */
+    private void quickSortFunction(int A[], int left, int right) {
         int mid;
         int i=left;
         int j=right;
@@ -30,7 +30,8 @@ public class PerfectlyBalancedTree extends SearchTree{
         if (left < j)  quickSortFunction(A, left, j);
         if (i < right) quickSortFunction(A, i, right);
     }
-    public Vertex createPBT(int A[], int l, int r) throws myTreeException {
+    
+    public Vertex createPBT(int A[], int l, int r) {
         if (l > r) return null;
         else {
             int m = (l + r)/2;

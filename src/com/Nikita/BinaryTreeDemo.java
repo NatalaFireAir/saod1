@@ -14,7 +14,6 @@ public class BinaryTreeDemo {
                 array[i] = rnd.nextInt(10000);
                 for (int j = 0; j < i; j++) {
                     if (array[i] == array[j]){
-                        
                         isDuplicate = true;
                     }
                 }
