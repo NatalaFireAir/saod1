@@ -82,7 +82,7 @@ public class SearchTree {
     private void readLeftToRight(Vertex vertex) {
         if (vertex != null) {
             readLeftToRight(vertex.left);
-            System.out.print(vertex.key + " ");
+            System.out.print(vertex.key + "(" + vertex.balance + "), ");
             readLeftToRight(vertex.right);
         }
     }

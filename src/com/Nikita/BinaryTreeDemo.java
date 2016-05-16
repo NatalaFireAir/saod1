@@ -33,16 +33,18 @@ public class BinaryTreeDemo {
             try {
                 System.out.println(n + " elements");
                 System.out.println();
-                System.out.println("AVL Tree");
+                System.out.println("B-Tree");
                 BTree bTree = new BTree(A);
                 System.out.println("Check = " + bTree.checkSearchTree());
                 bTree.readLeftToRight();
                 System.out.println();
                 System.out.println("root: " + bTree.root.key );
                 System.out.println("average height: " + bTree.findAverageHeight());
+                System.out.println("height: " + bTree.findHeight());
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+
     }
 }

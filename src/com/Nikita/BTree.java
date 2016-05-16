@@ -1,6 +1,6 @@
 package com.Nikita;
 
-public class BTree  extends SearchTree{
+public class BTree extends SearchTree{
     boolean VR, HR;
     public BTree() { root = null; }
     public BTree(int[] A) {
@@ -20,7 +20,7 @@ public class BTree  extends SearchTree{
         } else {
             if (p.key > value) {
                 p.left = insert(value, p.left);
-                if (VR == true) {
+                if (VR) {
                     if(p.balance == 0) {
                         Vertex q = p.left;
                         p.left = q.right;
@@ -38,11 +38,11 @@ public class BTree  extends SearchTree{
                 }
             } else if(p.key < value) {
                 p.right = insert(value, p.right);
-                if (VR == true) {
+                if (VR) {
                     p.balance = 1;
                     VR = false;
                     HR = true;
-                } else if (HR == true) {
+                } else if (HR) {
                     if(p.balance > 0) {
                         Vertex q = p.right;
                         p.right = q.left;
