@@ -1,10 +1,18 @@
 package com.Nikita;
 
-public class BTree extends SearchTree{
+/**
+ * Класс - бинарное В-Дерево.
+ */
+public class BTree extends SearchTree {
+    // логичесике переменные показывающие выросло ли дерево вертикально и горизонтально
     boolean VR, HR;
-    public BTree() { root = null; }
+
+    public BTree() {
+        root = null;
+    }
+
     public BTree(int[] A) {
-        for(int a:A) {
+        for (int a : A) {
             try {
                 root = insert(a, root);
             } catch (duplicateValueException d) {
@@ -12,16 +20,22 @@ public class BTree extends SearchTree{
             }
         }
     }
+
+    /**
+     * Вставка вершины в бинарное В-Дерево.
+     */
     public Vertex insert(int value, Vertex p) throws duplicateValueException {
         VR = HR = true;
         if (p == null) {
             p = new Vertex(value);
-            return  p;
+            return p;
         } else {
             if (p.key > value) {
                 p.left = insert(value, p.left);
                 if (VR) {
-                    if(p.balance == 0) {
+                    if (p.balance == 0) {
+                        //образование "страницы", горизонтальный рост
+                        //3-й случай(по методичке)
                         Vertex q = p.left;
                         p.left = q.right;
                         q.right = p;
@@ -30,20 +44,26 @@ public class BTree extends SearchTree{
                         VR = false;
                         HR = true;
                     } else {
+                        //4-й случай(по методичке)
                         p.balance = 0;
                         HR = true;
                     }
-                }else {
+                } else {
+                    //вертикальный рост
                     HR = false;
                 }
-            } else if(p.key < value) {
+            } else if (p.key < value) {
                 p.right = insert(value, p.right);
                 if (VR) {
+                    //образование "страницы", горизонтальный рост
+                    //1-й случай(по методичке)
                     p.balance = 1;
                     VR = false;
                     HR = true;
                 } else if (HR) {
-                    if(p.balance > 0) {
+                    if (p.balance > 0) {
+                        //2-й случай(по методичке)
+                        //вертикальный рост
                         Vertex q = p.right;
                         p.right = q.left;
                         p.balance = 0;

@@ -1,18 +1,32 @@
 package com.Nikita;
+
 import java.util.Random;
 
+/**
+ * Класс, демонстрирующий особенности работы В-Дерева
+ */
 public class BinaryTreeDemo {
-    int []nValues = {10, 50, 100, 200, 400};
+    /**
+     * генератор случайных значений
+     */
     Random rnd = new Random(System.currentTimeMillis());
+    /**
+     * Массив значений n - варианты количества элементов дерева
+     */
+    int[] nValues = {10, 50, 100, 200, 400};
+
+    /**
+     * Метод, возвращающий массив заданной величины из неповторяющихся рандомных значений
+     */
     int[] createRandArray(int n) {
         int[] array = new int[n];
         boolean isDuplicate;
         for (int i = 0; i < n; i++) {
-            while(true) {
+            while (true) {
                 isDuplicate = false;
                 array[i] = rnd.nextInt(10000);
                 for (int j = 0; j < i; j++) {
-                    if (array[i] == array[j]){
+                    if (array[i] == array[j]) {
                         isDuplicate = true;
                     }
                 }
@@ -21,12 +35,13 @@ public class BinaryTreeDemo {
         }
         return array;
     }
-    public static void main(String args[]){
+
+    public static void main(String args[]) {
         BinaryTreeDemo demo = new BinaryTreeDemo();
-        for (int n:demo.nValues) {
+        for (int n : demo.nValues) {
             int[] A = demo.createRandArray(n);
             System.out.println();
-            for (int a:A){
+            for (int a : A) {
                 System.out.print(a + ", ");
             }
             System.out.println();
@@ -38,7 +53,7 @@ public class BinaryTreeDemo {
                 System.out.println("Check = " + bTree.checkSearchTree());
                 bTree.readLeftToRight();
                 System.out.println();
-                System.out.println("root: " + bTree.root.key );
+                System.out.println("root: " + bTree.root.key);
                 System.out.println("average height: " + bTree.findAverageHeight());
                 System.out.println("height: " + bTree.findHeight());
             } catch (Exception e) {
