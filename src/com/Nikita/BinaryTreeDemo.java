@@ -1,21 +1,32 @@
 package com.Nikita;
 
-import sun.security.provider.certpath.Vertex;
-
 import java.util.Random;
 
+/**
+ * Класс, демонстрирующий особенности работы АВЛ-Дерева
+ */
 public class BinaryTreeDemo {
-    int []nValues = {10, 50, 100, 200, 400};
+    /**
+     * генератор случайных значений
+     */
     Random rnd = new Random(System.currentTimeMillis());
+    /**
+     * Массив значений n - варианты количества элементов дерева
+     */
+    int[] nValues = {10, 50, 100, 200, 400};
+
+    /**
+     * Метод, возвращающий массив заданной величины из неповторяющихся рандомных значений
+     */
     int[] createRandArray(int n) {
         int[] array = new int[n];
         boolean isDuplicate;
         for (int i = 0; i < n; i++) {
-            while(true) {
+            while (true) {
                 isDuplicate = false;
                 array[i] = rnd.nextInt(10000);
                 for (int j = 0; j < i; j++) {
-                    if (array[i] == array[j]){
+                    if (array[i] == array[j]) {
                         isDuplicate = true;
                     }
                 }
@@ -24,29 +35,29 @@ public class BinaryTreeDemo {
         }
         return array;
     }
-    public static void main(String args[]){
+
+    public static void main(String args[]) {
         BinaryTreeDemo demo = new BinaryTreeDemo();
-    for (int n:demo.nValues) {
+        for (int n : demo.nValues) {
             int[] A = demo.createRandArray(n);
-            System.out.println();
-            for (int a:A){
+            System.out.println("Array:");
+            for (int a : A) {
                 System.out.print(a + ", ");
             }
             System.out.println();
             try {
                 System.out.println(n + " elements");
                 System.out.println();
-                System.out.println("AVL Tree");
-                AVLTree avlTree = new AVLTree(A);
-                System.out.println("Check = " + avlTree.checkSearchTree());
-                avlTree.readLeftToRight();
+                System.out.println("AVL-Tree:");
+                AVLTree avlt = new AVLTree(A);
+                avlt.readLeftToRight();
                 System.out.println();
-                System.out.println("root: " + avlTree.root.key );
-                System.out.println("average height: " + avlTree.findAverageHeight());
-                System.out.println("Average rotation count: " + (float)avlTree.turnCounter/avlTree.findSize());
-
+                System.out.println("root: " + avlt.root.key);
+                System.out.println("average height: " + avlt.findAverageHeight());
+                System.out.println("average rotate count: " + (float)avlt.turnCounter / avlt.findSize());
+                System.out.println();
             } catch (Exception e) {
-                e.printStackTrace();
+                System.out.println("Вершина с таким значением уже есть");
             }
         }
     }
