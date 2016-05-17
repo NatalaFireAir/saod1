@@ -21,7 +21,7 @@ public class AVLTree extends SearchTree {
     /**
      * RR-Поворот
      */
-    public Vertex RR(Vertex p) {
+    private Vertex RR(Vertex p) {
         turnCounter++;
         Vertex q = p.right;
         q.balance = 0;
@@ -34,7 +34,7 @@ public class AVLTree extends SearchTree {
     /**
      * LL-Поворот
      */
-    public Vertex LL(Vertex p) {
+    private Vertex LL(Vertex p) {
         turnCounter++;
         Vertex q = p.left;
         q.balance = 0;
@@ -47,7 +47,7 @@ public class AVLTree extends SearchTree {
     /**
      * LR-Поворот
      */
-    public Vertex LR(Vertex p) {
+    private Vertex LR(Vertex p) {
         turnCounter += 2;
         Vertex q = p.left;
         Vertex r = q.right;
@@ -67,7 +67,7 @@ public class AVLTree extends SearchTree {
     /**
      * RL-Поворот
      */
-    public Vertex RL(Vertex p) {
+    private Vertex RL(Vertex p) {
         turnCounter += 2;
         Vertex q = p.right;
         Vertex r = q.left;
