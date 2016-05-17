@@ -7,7 +7,36 @@ public class OptimalSearchTree extends SearchTree {
     int[][] AR; //key matrix
     double[][] AW; //weight matrix
     double[][] AP; //w-height matrix
+    public OptimalSearchTree(int[] A, double[] B) {
+        arrayLenght = A.length;
+        root = null;
+        Avertex = new Vertex[arrayLenght];
+        for (int i = 0; i < arrayLenght; i++) {
+            Avertex[i] = new Vertex(A[i],B[i]);
 
+
+        }
+
+    }
+    private void quickSortFunction(Vertex A[], int left, int right) {
+        Vertex mid;
+        int i=left;
+        int j=right;
+        mid = A[(left + right) / 2];
+        while (i <= j)  {
+            while (mid.key > A[i].key) i++;
+            while (A[j].key > mid.key) j--;
+            if (i <= j) {
+                Vertex temp = A[i];
+                A[i] = A[j];
+                A[j] = temp;
+                i++;
+                j--;
+            }
+        }
+        if (left < j)  quickSortFunction(A, left, j);
+        if (i < right) quickSortFunction(A, i, right);
+    }
     public OptimalSearchTree() {
         arrayLenght = 7;
         Vertex v1 = new Vertex(1, 60);
@@ -21,7 +50,7 @@ public class OptimalSearchTree extends SearchTree {
         Avertex[4] = new Vertex(4,70);
         Avertex[5] = new Vertex(5,20);
         Avertex[6] = new Vertex(6,120);
-        AW = new double[arrayLenght][arrayLenght];
+/*        AW = new double[arrayLenght][arrayLenght];
         AP = new double[arrayLenght][arrayLenght];
         AR = new int[arrayLenght][arrayLenght];
         for (int i = 0; i < arrayLenght; i++) {
@@ -42,13 +71,13 @@ public class OptimalSearchTree extends SearchTree {
                 System.out.print(AP[i][j] + "*" + AR[i][j] + " _ ");
             }
             System.out.println();
-        }
-        createOST_A2(1, arrayLenght - 1);
+        }*/
+        createOST_A2(0, arrayLenght - 1);
         readLeftToRight();
 //        System.out.println(root.key+ "  " + root.right.key + "  " + root.right.right.key);
         System.out.println(findAvgWeightHeight(root));
     }
-
+/*
     void createAW() {
         for (int i = 0; i < arrayLenght; i++) {
             for (int j = i + 1; j < arrayLenght; j++) {
@@ -87,12 +116,12 @@ public class OptimalSearchTree extends SearchTree {
             }
             System.out.println();
         }
-    }
+    }*/
     public void createOST_A1() {
-        for (int i = 1; i < arrayLenght; i++) {
+        for (int i = 0; i < arrayLenght; i++) {
             Avertex[i].use = false;
         }
-        for (int i = 1; i < arrayLenght; i++) {
+        for (int i = 0; i < arrayLenght; i++) {
             double max = 0;
             int index = 0;
             for (int j = 1; j < arrayLenght; j++) {
@@ -109,7 +138,11 @@ public class OptimalSearchTree extends SearchTree {
             }
         }
     }
-    public void createOST_A2( int l, int r) {
+    public void createOST_A2() {
+        quickSortFunction(Avertex, 0, Avertex.length - 1);
+        createOST_A2(0, arrayLenght - 1);
+    }
+    public void createOST_A2(int l, int r) {
         double treeWeight = 0;
         double sum = 0;
         if (l <= r) {
@@ -120,13 +153,13 @@ public class OptimalSearchTree extends SearchTree {
             for (int i = l; i <= r; i++) {
                 if (sum < (treeWeight/2) && (sum + Avertex[i].weight) >= treeWeight/2) {
                     index = i;
+                    break;
                 } else {
                     sum += Avertex[i].weight;
                 }
             }
             try {
                 insert(Avertex[index]);
-                System.out.println(Avertex[index].key + " insert");
             } catch (duplicateValueException e) {
                 e.printStackTrace();
             }
@@ -168,4 +201,7 @@ public class OptimalSearchTree extends SearchTree {
             return h;
     }
 
+    public double findAvgWeightHeight() {
+        return findAvgWeightHeight(root);
+    }
 }

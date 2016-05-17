@@ -27,7 +27,7 @@ public class SearchTree {
             this.right = null;
             height = 0;
         }
-        Vertex(int key, int weight){
+        Vertex(int key, double weight){
             //    VR=HR=true;
             balance = 0;
             this.key = key;
@@ -96,7 +96,7 @@ public class SearchTree {
     private void readLeftToRight(Vertex vertex) {
         if (vertex != null) {
             readLeftToRight(vertex.left);
-            System.out.print(vertex.key + " ");
+            System.out.print(vertex.key + ", ");
             readLeftToRight(vertex.right);
         }
     }
