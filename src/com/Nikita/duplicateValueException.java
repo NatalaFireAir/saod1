@@ -1,4 +1,4 @@
 package com.Nikita;
 
-public class duplicateValueException extends Exception {
+public class DuplicateValueException extends Exception {
 }

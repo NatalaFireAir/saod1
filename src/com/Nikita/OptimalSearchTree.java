@@ -1,22 +1,15 @@
 package com.Nikita;
 
-
 public class OptimalSearchTree extends SearchTree {
     int arrayLenght;
     Vertex[] Avertex;
-    int[][] AR; //key matrix
-    double[][] AW; //weight matrix
-    double[][] AP; //w-height matrix
     public OptimalSearchTree(int[] A, double[] B) {
         arrayLenght = A.length;
         root = null;
         Avertex = new Vertex[arrayLenght];
         for (int i = 0; i < arrayLenght; i++) {
             Avertex[i] = new Vertex(A[i],B[i]);
-
-
         }
-
     }
     private void quickSortFunction(Vertex A[], int left, int right) {
         Vertex mid;
@@ -37,86 +30,33 @@ public class OptimalSearchTree extends SearchTree {
         if (left < j)  quickSortFunction(A, left, j);
         if (i < right) quickSortFunction(A, i, right);
     }
-    public OptimalSearchTree() {
-        arrayLenght = 7;
-        Vertex v1 = new Vertex(1, 60);
-        Vertex v2 = new Vertex(2, 30);
-        Vertex v3 = new Vertex(3, 10);
-        Avertex = new Vertex[7];
-        Avertex[0] = new Vertex();
-        Avertex[1] = v1;
-        Avertex[2] = v2;
-        Avertex[3] = v3;
-        Avertex[4] = new Vertex(4,70);
-        Avertex[5] = new Vertex(5,20);
-        Avertex[6] = new Vertex(6,120);
-/*        AW = new double[arrayLenght][arrayLenght];
-        AP = new double[arrayLenght][arrayLenght];
-        AR = new int[arrayLenght][arrayLenght];
-        for (int i = 0; i < arrayLenght; i++) {
-            for (int j = i; j < arrayLenght; j++) {
-                AW[i][j] = 0;
-            }
+    private void insert(Vertex v) throws DuplicateValueException {
+        if (root == null) {
+            root = v;
+            return;
         }
-        createAW();
-        for (int i = 0; i < arrayLenght; i++) {
-            for (int j = i; j < arrayLenght; j++) {
-                System.out.print(AW[i][j] + " _ ");
-            }
-            System.out.println();
-        }
-        createAPAR();
-        for (int i = 0; i < arrayLenght; i++) {
-            for (int j = i; j < arrayLenght; j++) {
-                System.out.print(AP[i][j] + "*" + AR[i][j] + " _ ");
-            }
-            System.out.println();
-        }*/
-        createOST_A2(0, arrayLenght - 1);
-        readLeftToRight();
-//        System.out.println(root.key+ "  " + root.right.key + "  " + root.right.right.key);
-        System.out.println(findAvgWeightHeight(root));
-    }
-/*
-    void createAW() {
-        for (int i = 0; i < arrayLenght; i++) {
-            for (int j = i + 1; j < arrayLenght; j++) {
-                AW[i][j] = AW[i][j - 1] + Avertex[j].weight;
-                // System.out.print(AW[i][j] + " _ ");
-            }
-            // System.out.println();
-        }
-        //   return AW;
-    }
-
-    void createAPAR() {
-        for (int i = 0; i < arrayLenght - 1; i++) {
-            for (int j = i + 1; j < arrayLenght; j++) {
-                AP[i][j] = AW[i][j];
-                AR[i][j] = i + 1;
-                // System.out.print(AR[i][j] + "/ "+ AP[i][j] + "___");
-            }
-            // System.out.println();
-        }
-        for (int h = 2; h < arrayLenght; h++) {
-            for (int i = 0; i < arrayLenght - h; i++) {
-                int j = i + h;
-                int m = AR[i][j - 1];
-                double min = AP[i][m - 1] + AP[m][j];
-                for (int k = m + 1; k < AR[i + 1][j]; k++) {
-                    double temp = AP[i][k - 1] + AP[k][j];
-                    if (temp < min) {
-                        m = k;
-                        min = temp;
-                    }
+        Vertex p = root;
+        while (p != null) {
+            if (v.key < p.key) {
+                if (p.left == null) {
+                    p.left = v;
+                    return;
                 }
-                AP[i][j] = min + AW[i][j];
-                AR[i][j] = m;
-                System.out.print(AP[i][j] + "*" + AR[i][j] + " _ ");
+                else {
+                    p = p.left;
+                }
             }
-            System.out.println();
+            else if (v.key > p.key) {
+                if (p.right == null) {
+                    p.right = v;
+                    return;
+                } else {
+                    p = p.right;
+                }
+            }
+            else throw new DuplicateValueException();
         }
-    }*/
+    }
     public void createOST_A1() {
         for (int i = 0; i < arrayLenght; i++) {
             Avertex[i].use = false;
@@ -133,7 +73,7 @@ public class OptimalSearchTree extends SearchTree {
             Avertex[index].use = true;
             try {
                 insert(Avertex[index]);
-            } catch (duplicateValueException e) {
+            } catch (DuplicateValueException e) {
                 e.printStackTrace();
             }
         }
@@ -160,39 +100,16 @@ public class OptimalSearchTree extends SearchTree {
             }
             try {
                 insert(Avertex[index]);
-            } catch (duplicateValueException e) {
+            } catch (DuplicateValueException e) {
                 e.printStackTrace();
             }
             createOST_A2( l,index-1);
             createOST_A2(index+1,r);
         }
     }
-    public void insert(Vertex v) throws duplicateValueException {
-        if (root == null) {
-            root = v;
-            return;
-        }
-        Vertex p = root;
-        while (p != null) {
-            if (v.key < p.key) {
-                if (p.left == null) {
-                    p.left = v;
-                    return;
-                }
-                else {
-                    p = p.left;
-                }
-            }
-            else if (v.key > p.key) {
-                if (p.right == null) {
-                    p.right = v;
-                    return;
-                } else {
-                    p = p.right;
-                }
-            }
-            else throw new duplicateValueException();
-        }
+    private static double max(double a, double b){
+        if (a >= b) return a;
+        return b;
     }
     public double findAvgWeightHeight(Vertex vertex) {
             double h;
@@ -200,7 +117,6 @@ public class OptimalSearchTree extends SearchTree {
             else h = (1 + max(findAvgWeightHeight(vertex.left), findAvgWeightHeight(vertex.right)))*vertex.weight;
             return h;
     }
-
     public double findAvgWeightHeight() {
         return findAvgWeightHeight(root);
     }

@@ -1,4 +1,4 @@
 package com.Nikita;
 
-public class valueNotFoundException extends myTreeException {
+public class valueNotFoundException extends Exception {
 }

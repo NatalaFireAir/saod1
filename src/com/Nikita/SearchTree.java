@@ -8,10 +8,9 @@ public class SearchTree {
         int balance;
         int height;
         int key;
-      //  boolean VR, HR;
-
         Vertex left;
         Vertex right;
+
         Vertex(){
             balance = 0;
             key = 0;
@@ -20,7 +19,6 @@ public class SearchTree {
             height = 0;
         }
         Vertex(int key){
-            //    VR=HR=true;
             balance = 0;
             this.key = key;
             this.left = null;
@@ -28,7 +26,6 @@ public class SearchTree {
             height = 0;
         }
         Vertex(int key, double weight){
-            //    VR=HR=true;
             balance = 0;
             this.key = key;
             this.weight = weight;
@@ -36,13 +33,7 @@ public class SearchTree {
             this.right = null;
             height = 0;
         }
-        Vertex(int key, Vertex left, Vertex right){
-            height = 0;
-            balance = 0;
-            this.key = key;
-            this.left = left;
-            this.right = right;
-        }
+
         Vertex(Vertex v){
            root = v;
         }
@@ -51,37 +42,8 @@ public class SearchTree {
     public SearchTree() {
         root = null;
     }
-    protected int height(Vertex p) {
-        return p == null ? -1 : p.height;
-    }
-    public Vertex RR(Vertex p) {
-        Vertex q = p.right;
-        p.right = q.left;
-        q.left = p;
-        p.height = max(height(p.left), height(p.right)) + 1;
-        q.height = max(height(q.right ), p.height) + 1;
-        return q;
-    }
-    public Vertex LL(Vertex p) {
-        Vertex q = p.left;
-        p.left = q.right;
-        q.right = p;
-        p.height = max(height(p.left), height(p.right)) + 1;
-        q.height = max(height(q.left), q.height) + 1;
-        return q;
-    }
-    public Vertex LR(Vertex p)  {
-        p.left = RR(p.left);
-        return LL(p);
-    }
-    public Vertex RL(Vertex p) {
-        p.right = LL(p.right);
-        return RR(p);
-    }
-    protected static double max(double a, double b){
-        if (a >= b) return a;
-        return b;
-    }
+
+
     protected static int max(int a, int b){
         if (a >= b) return a;
         return b;
